@@ -2,6 +2,7 @@ from __future__ import  absolute_import
 import os
 from collections import namedtuple
 import time
+import torch
 from torch.nn import functional as F
 from model.utils.creator_tool import AnchorTargetCreator, ProposalTargetCreator
 
@@ -95,6 +96,8 @@ class FasterRCNNTrainer(nn.Module):
         img_size = (H, W)
 
         features = self.faster_rcnn.extractor(imgs)
+        print(torch.max(imgs), torch.min(imgs))
+        print(features)
 
         rpn_locs, rpn_scores, rois, roi_indices, anchor = \
             self.faster_rcnn.rpn(features, img_size, scale)
